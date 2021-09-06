@@ -1,5 +1,5 @@
 {
-  "name": "active-circulation-erc20-lambda",
+  "name": "erc20-utils-lambda",
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
@@ -14,7 +14,7 @@
     "@middy/http-json-body-parser": "^1.5.2",
     "bignumber.js": "^9.0.1",
     "source-map-support": "^0.5.19",
-    "web3": "^1.2.6"
+    "web3": "^1.5.2"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",

@@ -5,18 +5,18 @@ import { formatBadRequestError, formatJSONResponse } from "@libs/apiGateway";
 
 import { middyfy } from "@libs/lambda";
 
-import schema from "./schema";
+// import schema from "./schema";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
 import config from "src/constants/config";
 import { toFraction } from "@libs/BigNumber";
 import ERC20ABI from "src/constants/erc20Abi";
 
-const tokenSupply: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const tokenSupply: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
   console.log("inside handler");
 
   try {
-    const infuraURL = `wss://eth-mainnet.ws.alchemyapi.io/v2/Qa6tvFeHbxregvy3m_UPoo_FuYFrBlfY`;
+    const infuraURL = `wss://mainnet.infura.io/ws/v3/${config.infuraId}`;
     console.log("infura url", infuraURL);
     const web3Provider = new Web3.providers.WebsocketProvider(infuraURL);
     console.log("web3Provider", web3Provider.toString());
@@ -70,6 +70,7 @@ const tokenSupply: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (ev
 
     const activeCirculationBalance = totalSupplyBN.minus(balanceToBeExcluded);
     console.log("activecirculation", activeCirculationBalance.toString());
+    web3Provider.disconnect(0, "process completed successfully")
     return formatJSONResponse({
       totalSupply: totalSupplyBN.precision(6),
       activeCirculationBalance: activeCirculationBalance.precision(6),
