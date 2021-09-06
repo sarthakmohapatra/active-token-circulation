@@ -1,5 +1,5 @@
 const config: Config = {
-  infuraId: "f992eab8e1244dc793cf14073f01e7ae",
+  infuraId: process.env.INFURA_ID,
   tokens: [
     {
       name: "AGIX",

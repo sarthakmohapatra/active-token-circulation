@@ -11,7 +11,8 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
   },
-  plugins: ["serverless-webpack"],
+
+  plugins: ["serverless-webpack", "serverless-dotenv-plugin"],
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -24,6 +25,7 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: "20201221",
   },
+
   // import the function via paths
   functions: { tokenSupply },
 };
