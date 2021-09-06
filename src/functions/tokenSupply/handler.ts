@@ -58,12 +58,12 @@ const tokenSupply: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
       console.log("balanceToBeExcluded", balanceToBeExcluded.toString());
     }
 
-    const activeCirculationBalance = totalSupplyBN.minus(balanceToBeExcluded);
-    console.log("activecirculation", activeCirculationBalance.toString());
+    const circulatingSupply = totalSupplyBN.minus(balanceToBeExcluded);
+    console.log("circulatingSupply", circulatingSupply.toString());
 
     return formatJSONResponse({
       totalSupply: totalSupplyBN.precision(6),
-      activeCirculationBalance: activeCirculationBalance.precision(6),
+      circulatingSupply: circulatingSupply.precision(6),
       tokenSymbol: token.symbol,
       tokenName: token.name,
     });

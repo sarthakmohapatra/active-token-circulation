@@ -10,7 +10,7 @@ export default {
         path: "tokensupply",
         request: {
           parameters: {
-            queryStrings: {
+            querystrings: {
               tokensymbol: true,
             },
           },
