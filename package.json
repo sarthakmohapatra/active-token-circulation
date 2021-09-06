@@ -5,7 +5,8 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "NODE_ENV=production sls deploy"
+    "package": "NODE_ENV=production sls package --stage",
+    "deploy": "NODE_ENV=production sls deploy --stage"
   },
   "engines": {
     "node": "14.x"
