@@ -14,26 +14,16 @@ import ERC20ABI from "src/constants/erc20Abi";
 
 const tokenSupply: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
   console.log("inside handler");
+  const infuraURL = `wss://mainnet.infura.io/ws/v3/${config.infuraId}`;
+  console.log("infura url", infuraURL);
+  const web3Provider = new Web3.providers.WebsocketProvider(infuraURL);
+  console.log("web3Provider", web3Provider.toString());
+  const web3 = new Web3(web3Provider);
 
   try {
-    const infuraURL = `wss://mainnet.infura.io/ws/v3/${config.infuraId}`;
-    console.log("infura url", infuraURL);
-    const web3Provider = new Web3.providers.WebsocketProvider(infuraURL);
-    console.log("web3Provider", web3Provider.toString());
-    const web3 = new Web3(web3Provider);
-    console.log("web3", web3.toString());
-    console.log("event query", event.queryStringParameters);
-    console.log("tokenSymbol query", event.queryStringParameters.tokensymbol);
-    if (!event?.queryStringParameters || !event.queryStringParameters?.tokensymbol) {
-      console.log("No Token symbol found");
-      return formatJSONResponse({
-        message: "No Token symbol found",
-      });
-    }
-    // return formatJSONResponse({
-    //   message: " Token symbol found",
-    // });
-    const tokenSymbol = event.queryStringParameters.tokensymbol;
+    console.log("tokenSymbol query", event.queryStringParameters?.tokensymbol);
+
+    const tokenSymbol = event?.queryStringParameters?.tokensymbol ?? config.defaultTokenSymbol;
     console.log("Token from query params", tokenSymbol);
     const token = config.tokens.find((el) => el.symbol === tokenSymbol);
     console.log("Token details", JSON.stringify(token));
@@ -70,7 +60,7 @@ const tokenSupply: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
 
     const activeCirculationBalance = totalSupplyBN.minus(balanceToBeExcluded);
     console.log("activecirculation", activeCirculationBalance.toString());
-    web3Provider.disconnect(0, "process completed successfully")
+
     return formatJSONResponse({
       totalSupply: totalSupplyBN.precision(6),
       activeCirculationBalance: activeCirculationBalance.precision(6),
@@ -82,6 +72,8 @@ const tokenSupply: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
     return formatJSONResponse({
       error: error.message,
     });
+  } finally {
+    web3Provider.disconnect(0, "process completed successfully");
   }
 };
 

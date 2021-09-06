@@ -5,14 +5,16 @@ const config: Config = {
       name: "AGIX",
       symbol: "agix",
       address: "0x5B7533812759B45C2B44C19e320ba2cD2681b542",
-      excludeBalancesOf: ["0x19184ab45c40c2920b0e0e31413b9434abd243ed", "0x8699b0ffff9136df5fed0175baf4b65477378a3d"],
+      excludeBalancesOf: ["0x2ff22f87fdc01ecc235126b98ddc00f70dd2ae0b"],
     },
   ],
+  defaultTokenSymbol: "agix",
 };
 
 type Config = {
   infuraId: string;
   tokens: Token[];
+  defaultTokenSymbol: string;
 };
 
 type Token = {
