@@ -11,7 +11,7 @@ export default {
         request: {
           parameters: {
             querystrings: {
-              tokensymbol: true,
+              tokensymbol: false,
             },
           },
         },
